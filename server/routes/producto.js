@@ -45,7 +45,7 @@ app.get('/productos', verificaToken, (req, res) => {
 // ===========================
 //  Obtener un producto por ID
 // ===========================
-app.get('/productos/:id', verificaToken, (req, res) => {
+app.get('/productos/:id', (req, res) => {
     // populate: usuario categoria
     // paginado
     let id = req.params.id;

@@ -7,8 +7,8 @@ let rolesValidos = {
     message: '{VALUE} no es un rol válido'
 };
 
-let Schema = mongoose.Schema;
 
+let Schema = mongoose.Schema;
 
 
 let usuarioSchema = new Schema({
@@ -52,9 +52,10 @@ usuarioSchema.methods.toJSON = function() {
     delete userObject.password;
 
     return userObject;
-
 }
 
+
 usuarioSchema.plugin(uniqueValidator, { message: '{PATH} debe de ser único' });
+
 
 module.exports = mongoose.model('Usuario', usuarioSchema);

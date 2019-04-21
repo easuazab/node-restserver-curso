@@ -8,16 +8,19 @@
     <title>Google Sign-In Demo</title>
 
     <script src="https://apis.google.com/js/platform.js" async defer></script>
-    <meta name="google-signin-client_id" content="354692459509-a606v6t1rccrdlcqpfb852nho3qj9dmf.apps.googleusercontent.com">
+    <meta name="google-signin-client_id" content="219758474264-vh1bibcphgvbc32km508lubtqkanikf1.apps.googleusercontent.com">
 
 </head>
 
 <body>
+
+    <!-- <img src="http://localhost:3000/imagen/usuarios/5cbab2a4a636e2628c468941-70.jpg?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c3VhcmlvIjp7InJvbGUiOiJBRE1JTl9ST0xFIiwiZXN0YWRvIjpmYWxzZSwiZ29vZ2xlIjpmYWxzZSwiX2lkIjoiNWNiYWIyYTRhNjM2ZTI2MjhjNDY4OTQxIiwibm9tYnJlIjoiRWRpc3NvbiBBLiBTdWF6YSIsImVtYWlsIjoidGVzdDFAaG90bWFpbC5jb20iLCJfX3YiOjAsImltZyI6IjVjYmFiMmE0YTYzNmUyNjI4YzQ2ODk0MS03MC5qcGcifSwiaWF0IjoxNTU1ODgyMjg0LCJleHAiOjE1NTYwNTUwODR9.AhkjzeeQJ2R16n5iGvIOkOmHlEkcH3WveFkA7Pmev0U"
+        alt="">  -->
+
     <div class="g-signin2" data-onsuccess="onSignIn"></div>
 
+
     <a href="#" onclick="signOut();">Sign out</a>
-
-
     <script>
         function signOut() {
             var auth2 = gapi.auth2.getAuthInstance();
@@ -27,6 +30,7 @@
         }
     </script>
 
+
     <script>
         function onSignIn(googleUser) {
             var profile = googleUser.getBasicProfile();
@@ -35,11 +39,10 @@
             console.log('Image URL: ' + profile.getImageUrl());
             console.log('Email: ' + profile.getEmail()); // This is null if the 'email' scope is not present.
 
+
             var id_token = googleUser.getAuthResponse().id_token;
 
-
             console.log(id_token);
-
 
 
             var xhr = new XMLHttpRequest();
@@ -49,10 +52,9 @@
                 console.log('Signed in as: ' + xhr.responseText);
             };
             xhr.send('idtoken=' + id_token);
+
         }
     </script>
-
-
 
 </body>
 

@@ -12,16 +12,14 @@ const bodyParser = require('body-parser');
 app.use(bodyParser.urlencoded({ extended: false }))
 
 // parse application/json
-app.use(bodyParser.json())
+app.use(bodyParser.json());
 
-// Habilitar la carpeta public
+// habilitar la carpeta public
 app.use(express.static(path.resolve(__dirname, '../public')));
-
 
 
 // Configuración global de rutas
 app.use(require('./routes/index'));
-
 
 
 
@@ -33,6 +31,7 @@ mongoose.connect(process.env.URLDB, { useNewUrlParser: true, useCreateIndex: tru
         console.log('Base de datos ONLINE');
 
     });
+
 
 
 app.listen(process.env.PORT, () => {

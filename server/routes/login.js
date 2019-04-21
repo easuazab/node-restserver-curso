@@ -6,6 +6,8 @@ const jwt = require('jsonwebtoken');
 const { OAuth2Client } = require('google-auth-library');
 const client = new OAuth2Client(process.env.CLIENT_ID);
 
+
+
 const Usuario = require('../models/usuario');
 
 const app = express();
@@ -23,7 +25,7 @@ app.post('/login', (req, res) => {
                 ok: false,
                 err
             });
-        };
+        }
 
         if (!usuarioDB) {
             return res.status(400).json({
@@ -33,6 +35,7 @@ app.post('/login', (req, res) => {
                 }
             });
         }
+
 
         if (!bcrypt.compareSync(body.password, usuarioDB.password)) {
             return res.status(400).json({
@@ -53,14 +56,13 @@ app.post('/login', (req, res) => {
             token
         });
 
-    });
 
+    });
 
 });
 
 
 // Configuraciones de Google
-
 async function verify(token) {
     const ticket = await client.verifyIdToken({
         idToken: token,
@@ -70,9 +72,6 @@ async function verify(token) {
     });
     const payload = ticket.getPayload();
 
-    // console.log(payload.name);
-    // console.log(payload.email);
-    // console.log(payload.picture);
     return {
         nombre: payload.name,
         email: payload.email,
@@ -95,6 +94,7 @@ app.post('/google', async(req, res) => {
             });
         });
 
+
     Usuario.findOne({ email: googleUser.email }, (err, usuarioDB) => {
 
         if (err) {
@@ -110,7 +110,7 @@ app.post('/google', async(req, res) => {
                 return res.status(400).json({
                     ok: false,
                     err: {
-                        message: 'Debe de usar la autenticación normal'
+                        message: 'Debe de usar su autenticación normal'
                     }
                 });
             } else {
@@ -122,8 +122,9 @@ app.post('/google', async(req, res) => {
                 return res.json({
                     ok: true,
                     usuario: usuarioDB,
-                    token
+                    token,
                 });
+
             }
 
         } else {
@@ -134,7 +135,7 @@ app.post('/google', async(req, res) => {
             usuario.email = googleUser.email;
             usuario.img = googleUser.img;
             usuario.google = true;
-            usuario.password = ':-)';
+            usuario.password = ':)';
 
             usuario.save((err, usuarioDB) => {
 
@@ -149,10 +150,11 @@ app.post('/google', async(req, res) => {
                     usuario: usuarioDB
                 }, process.env.SEED, { expiresIn: process.env.CADUCIDAD_TOKEN });
 
+
                 return res.json({
                     ok: true,
                     usuario: usuarioDB,
-                    token
+                    token,
                 });
 
 
@@ -165,9 +167,6 @@ app.post('/google', async(req, res) => {
 
 
 });
-
-
-
 
 
 
